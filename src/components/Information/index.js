@@ -17,20 +17,20 @@ import ownersIMG from '../../images/owners.png';
 
 const Information = ({ loggedIn }) => {
   const navigate = useNavigate();
-  const [owners, setOwners] = useState([]);
+  const [conferences, setConferences] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAllOwners();
+    fetchConferences();
   }, []);
 
   useEffect(() => {
-    if (owners.length < 1) {
+    if (conferences.length < 1) {
       setLoading(true);
     } else {
       setLoading(false);
     }
-  }, [owners]);
+  }, [conferences]);
 
   useEffect(() => {
     if (!loggedIn) {
@@ -38,9 +38,9 @@ const Information = ({ loggedIn }) => {
     }
   }, [loggedIn]);
 
-  const fetchAllOwners = async () => {
-    const response = await facade.fetchOwners();
-    setOwners(response);
+  const fetchConferences = async () => {
+    const response = await facade.fetchConferences();
+    setConferences(response);
     return response;
   };
 
@@ -49,27 +49,29 @@ const Information = ({ loggedIn }) => {
       <Wrapper>
         <OwnerDiv>
           <div className="ownerHeadline">
-            <h2>Owners</h2> <img src={ownersIMG} alt="ownerimg" />
+            <h2>Conferences</h2> <img src={ownersIMG} alt="ownerimg" />
           </div>
           <OwnersTable>
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Name</th>
-                <th>Address</th>
-                <th>Phone</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Date</th>
+                <th>Time</th>
               </tr>
             </thead>
             {loading ? (
               <Spinner size={'150px'} />
             ) : (
               <tbody>
-                {owners.map((owner) => (
-                  <tr key={+owner.id}>
-                    <td>{owner.id}</td>
-                    <td>{owner.name}</td>
-                    <td>{owner.address}</td>
-                    <td>{owner.phone}</td>
+                {conferences.map((conference) => (
+                  <tr key={+conference.id}>
+                    <td>{conference.name}</td>
+                    <td>{conference.location}</td>
+                    <td>{conference.capacity}</td>
+                    <td>{conference.date}</td>
+                    <td>{conference.time}</td>
                   </tr>
                 ))}
               </tbody>

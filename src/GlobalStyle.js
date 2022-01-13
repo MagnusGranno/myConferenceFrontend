@@ -12,9 +12,15 @@ export const GlobalStyle = createGlobalStyle`
   --fs-300: 1rem;
   --fs-200: 0.875rem;
   //Hex #031926
-  --primary-color: 202, 85%, 8%;
+  //--primary-color: 202, 85%, 8%;
+
+  //Hex #1985A1
+    --primary-color: 192, 73%, 36%;
   //Hex #ffc53d
-  --secondary-color: 42, 100%, 62%;
+  //--secondary-color: 42, 100%, 62%;
+
+  //Hex #DCDCDD
+  --secondary-color: 0, 0%, 91%;
 }
 
 
@@ -51,7 +57,11 @@ body {
     margin: 0;
   }
   .active {
-   color: hsl(var(--secondary-color));
+   color: #000;
+
+   h5 {
+   border-bottom: 1px solid black;
+   }
   }
 
   .mylink {

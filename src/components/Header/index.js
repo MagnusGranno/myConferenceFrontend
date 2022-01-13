@@ -6,6 +6,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 // Facade
 import { facade } from '../../apiFacade';
 
+// image
+import globeIMG from '../../images/globe-white.png';
 // Styles
 import { Wrapper, Content, Menu, StyledLogout } from './Header.styles';
 
@@ -21,7 +23,10 @@ function Header({ loggedIn, setLoggedIn, setLoginCredentials }) {
   return (
     <Wrapper>
       <Content>
-        <h1>Harbour</h1>
+        <div className="headerDiv">
+          <img src={globeIMG} alt="globe" />
+          <h1>MyConference</h1>
+        </div>
         <Menu>
           <NavLink to="/">
             <h5>Home</h5>

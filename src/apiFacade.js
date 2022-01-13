@@ -36,9 +36,9 @@ function apiFacade() {
     return await response.json();
   };
 
-  const fetchOwners = async () => {
+  const fetchConferences = async () => {
     const options = makeOptions('GET', true);
-    const response = await fetch(URL + '/api/harbour/owners', options);
+    const response = await fetch(URL + '/api/conference/conferences', options);
     return response.json();
   };
 
@@ -100,7 +100,7 @@ function apiFacade() {
     fetchData,
     handleHtttpErrors,
     fetchAny,
-    fetchOwners,
+    fetchConferences,
   };
 }
 export const facade = apiFacade();

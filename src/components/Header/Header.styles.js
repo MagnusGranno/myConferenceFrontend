@@ -13,7 +13,7 @@ export const Content = styled.div`
   max-width: 1440px;
   padding: 0 3rem;
   border-radius: 0 0 12px 12px;
-  color: white;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,8 +26,16 @@ export const Content = styled.div`
     }
   }
 
-  h1 {
-    color: hsl(var(--secondary-color));
+  img {
+    background-size: cover;
+    width: 10%;
+    height: 10%;
+  }
+
+  .headerDiv {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 `;
 
