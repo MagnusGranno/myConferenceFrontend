@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // Routing
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Components
 import Header from './components/Header';
@@ -20,6 +15,7 @@ import { GlobalStyle } from './GlobalStyle';
 import { facade } from './apiFacade';
 import Information from './components/Information';
 import Nomatch from './components/Nomatch';
+import AdminPanel from './components/AdminPanel';
 
 function App() {
   const initialState = {
@@ -34,10 +30,10 @@ function App() {
     if (sessionStorage.getItem('username') && facade.loggedIn) {
       setLoggedIn(true);
     }
-    if (facade.isExpired) {
-      facade.logout();
-      setLoggedIn(false);
-    }
+    // if (facade.isExpired) {
+    //   facade.logout();
+    //   setLoggedIn(false);
+    // }
   }, []);
   return (
     <Router>
@@ -66,6 +62,7 @@ function App() {
           path="/information"
           element={<Information loggedIn={loggedIn} />}
         />
+        <Route path="/adminpanel" element={<AdminPanel />} />
       </Routes>
 
       <GlobalStyle />

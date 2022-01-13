@@ -11,6 +11,7 @@ import Spinner from '../Spinner';
 import TalkById from '../TalkById';
 import TalkBySpeaker from '../TalkBySpeaker';
 import Conferences from '../Conferences';
+import Speakers from '../Speakers';
 
 // facade
 import { facade } from '../../apiFacade';
@@ -23,6 +24,7 @@ const Information = ({ loggedIn }) => {
   const [conferences, setConferences] = useState([]);
   const [talkById, setTalkById] = useState([]);
   const [talksBySpeaker, setTalksBySpeaker] = useState([]);
+  const [speakers, setSpeakers] = useState([]);
 
   // Fetch taking too long?
   const [loading, setLoading] = useState(true);
@@ -43,6 +45,7 @@ const Information = ({ loggedIn }) => {
 
   useEffect(() => {
     fetchConferences();
+    fetchAllSpeakers();
   }, []);
 
   useEffect(() => {
@@ -74,9 +77,16 @@ const Information = ({ loggedIn }) => {
   };
 
   const fetchTalkBySpeaker = async (id) => {
+    setShowTalkBySpeaker(false);
     const response = await facade.fetchTalkBySpeaker(id);
     setTalksBySpeaker(response);
     setShowTalkBySpeaker(true);
+    return response;
+  };
+
+  const fetchAllSpeakers = async () => {
+    const response = await facade.fetchAllSpeakers();
+    setSpeakers(response);
     return response;
   };
 
@@ -93,6 +103,17 @@ const Information = ({ loggedIn }) => {
               setTalkById={setTalkById}
               fetchTalkById={fetchTalkById}
               setSelectedConf={setSelectedConf}
+            />
+          )}
+          {speakers.length < 1 ? (
+            <Spinner size={'150px'} />
+          ) : (
+            <Speakers
+              speakers={speakers}
+              setSelectedSpeaker={setSelectedSpeaker}
+              loading={loading}
+              setLoading={setLoading}
+              fetchTalkBySpeaker={fetchTalkBySpeaker}
             />
           )}
         </VerticalWrapper>

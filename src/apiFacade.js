@@ -32,9 +32,12 @@ function apiFacade() {
       username: username,
       password: password,
     });
-
-    const response = await fetch(URL + '/api/login/signup', options);
-    return await response.json();
+    try {
+      const response = await fetch(URL + '/api/login/signup', options);
+      return await response.json();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const fetchConferences = async () => {
@@ -65,6 +68,28 @@ function apiFacade() {
     try {
       const response = await fetch(
         URL + '/api/conference/talk/speaker/' + id,
+        options
+      );
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const fetchAllSpeakers = async () => {
+    const options = makeOptions('GET', true);
+    try {
+      const response = await fetch(URL + '/api/conference/speakers/', options);
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const createConference = async (conf) => {
+    const options = makeOptions('POST', true, conf);
+    try {
+      const response = await fetch(
+        URL + '/api/conference/create/conference/',
         options
       );
       return response.json();
@@ -140,7 +165,9 @@ function apiFacade() {
     fetchConferences,
     fetchTalkById,
     fetchTalkBySpeaker,
+    fetchAllSpeakers,
     isExpired,
+    createConference,
   };
 }
 export const facade = apiFacade();

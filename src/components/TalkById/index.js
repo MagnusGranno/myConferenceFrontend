@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { TalkByIdDiv, TalkByIdTable } from './TalkById.styles';
 
 // Helpers
-import { calcTime, formatDate } from '../../Helpers';
+import { calcTime } from '../../Helpers';
 
 // images
 import unmutedIMG from '../../images/unmuted_pink.png';
@@ -36,7 +36,7 @@ const TalkById = ({
       <TalkByIdDiv>
         <div className="talkHeadline">
           <h2>Talks at {selectedConf.name}</h2>
-          <img src={unmutedIMG} alt="conferenceimg" />
+          <img src={unmutedIMG} alt="microphone" />
         </div>
         <TalkByIdTable>
           <thead>

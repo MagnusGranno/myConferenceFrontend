@@ -1,30 +1,31 @@
 import styled from 'styled-components';
 
-export const TalkByIdDiv = styled.div`
+export const SpeakerDiv = styled.div`
   border-radius: 0 0 10px 10px;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
   display: flex;
-  overflow: hidden;
   flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  max-height: 100%;
   img {
     width: 10%;
   }
 
-  .talkHeadline {
+  .speakerHeadline {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
-    gap: 1rem;
     h2 {
-      font-size: var(--fs-500);
+      font-size: var(--fs-600);
       color: hsl(var(--minor-color));
       letter-spacing: 2px;
     }
   }
 `;
 
-export const TalkByIdTable = styled.table`
+export const SpeakerTable = styled.table`
   border-collapse: collapse;
   font-size: var(--fs-300);
   border-radius: 0 0 10px 10px;
@@ -34,7 +35,6 @@ export const TalkByIdTable = styled.table`
     background-color: hsl(var(--primary-color));
   }
   thead tr {
-    background-color: ${(props) => props.color};
     color: hsl(var(--secondary-color));
     text-align: left;
     font-weight: bold;
@@ -42,23 +42,22 @@ export const TalkByIdTable = styled.table`
   }
   th,
   td {
-    p {
-      padding: 0;
-      margin: 0;
-    }
-    padding: 0.7rem 0.7rem;
+    padding: 1.25rem 1.5rem;
   }
   tbody tr {
     border-bottom: 1px solid #dddddd;
+    cursor: pointer;
+    :hover {
+      background-color: hsl(var(--minor-color));
+    }
   }
   tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
+    :hover {
+      background-color: hsl(var(--minor-color));
+    }
   }
   tbody tr:last-of-type {
     border: none;
-  }
-  tbody td p:hover {
-    cursor: pointer;
-    transform: scale(1.1);
   }
 `;

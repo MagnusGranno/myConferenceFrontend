@@ -17,7 +17,7 @@ export const TalkBySpeakerDiv = styled.div`
     align-items: center;
     padding: 0 1rem;
     h2 {
-      font-size: var(--fs-600);
+      font-size: var(--fs-500);
       color: hsl(var(--minor-color));
       letter-spacing: 2px;
     }
@@ -41,20 +41,13 @@ export const TalkBySpeakerTable = styled.table`
   }
   th,
   td {
-    padding: 1.25rem 1.5rem;
+    padding: 0.7rem 0.7rem;
   }
   tbody tr {
     border-bottom: 1px solid #dddddd;
-    cursor: pointer;
-    :hover {
-      background-color: hsl(var(--minor-color));
-    }
   }
   tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
-    :hover {
-      background-color: hsl(var(--minor-color));
-    }
   }
   tbody tr:last-of-type {
     border: none;

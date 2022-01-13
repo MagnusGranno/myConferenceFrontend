@@ -9,7 +9,13 @@ import speakerIMG from '../../images/speaker_pink.png';
 // Components
 import Spinner from '../Spinner';
 import { calcTime } from '../../Helpers';
-const TalkBySpeaker = ({ loading, talksBySpeaker, selectedSpeaker }) => {
+const TalkBySpeaker = ({ loading, talksBySpeaker, selectedSpeaker, fetchTalkBySpeaker, setSelectedSpeaker }) => {
+
+
+    const selectSpeaker = (speaker) => {
+        fetchTalkBySpeaker(speaker.id);
+        setSelectedSpeaker(speaker);
+      };
   return (
     <>
       <TalkBySpeakerDiv>
@@ -23,6 +29,7 @@ const TalkBySpeaker = ({ loading, talksBySpeaker, selectedSpeaker }) => {
               <th>Topic</th>
               <th>Duration</th>
               <th>Props list</th>
+              <th>Speaker(s)</th>
             </tr>
           </thead>
           {loading ? (
@@ -34,6 +41,16 @@ const TalkBySpeaker = ({ loading, talksBySpeaker, selectedSpeaker }) => {
                   <td>{talk.topic}</td>
                   <td>{calcTime(talk.duration)}</td>
                   <td>{talk.props_list}</td>
+                  <td>
+                    {talk.speaker_list.map((speaker) => (
+                      <p
+                        key={speaker.id}
+                        onClick={() => selectSpeaker(speaker)}
+                      >
+                        {speaker.name}
+                      </p>
+                    ))}
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -9,7 +9,7 @@ export const ConferenceDiv = styled.div`
   overflow: hidden;
   max-height: 100%;
   img {
-    width: 20%;
+    width: 10%;
   }
 
   .conferenceHeadline {

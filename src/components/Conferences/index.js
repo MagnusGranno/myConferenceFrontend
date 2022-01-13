@@ -1,13 +1,11 @@
-import { useState } from 'react';
-
 // Styles
 import { ConferenceDiv, ConferenceTable } from './Conferences.styles';
 
 // Image
-import conferencesIMG from '../../images/conferences_pink.png';
+import conferencesIMG from '../../images/globe_pink.png';
 import capacityIMG from '../../images/capacitySmall.png';
 // Helpers
-import { calcTime, formatDate } from '../../Helpers';
+import { formatDate } from '../../Helpers';
 
 // Components
 import Spinner from '../Spinner';
@@ -50,11 +48,11 @@ const Conferences = ({
                   <td>{conference.name}</td>
                   <td>{conference.location}</td>
                   <td>
-                    {conference.capacity}{' '}
+                    {conference.capacity}
                     <img src={capacityIMG} alt="capacity" />
                   </td>
                   <td>{formatDate(conference.date)}</td>
-                  <td>{calcTime(conference.time)}</td>
+                  <td>{conference.time}</td>
                 </tr>
               ))}
             </tbody>

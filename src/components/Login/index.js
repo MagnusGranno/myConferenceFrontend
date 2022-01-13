@@ -42,7 +42,7 @@ const Login = ({
     setError('');
     for (let key in loginCredentials) {
       if (loginCredentials[key] === '') {
-        setError(`${key} skal være udfyldt`);
+        setError(`${key} can't be empty`);
         return;
       }
     }

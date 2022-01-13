@@ -36,6 +36,11 @@ function Header({ loggedIn, setLoggedIn, setLoginCredentials }) {
               <h5>Information</h5>
             </NavLink>
           )}
+
+          <NavLink to="/adminpanel">
+            <h5>adminpanel</h5>
+          </NavLink>
+
           {!loggedIn ? (
             <NavLink to="/login">
               <h5>Login</h5>
