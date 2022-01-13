@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
+  color: hsl(var(--minor-color));
   width: 100%;
   height: 100%;
   display: flex;

@@ -19,14 +19,6 @@ const TalkById = ({
   fetchTalkBySpeaker,
   setSelectedSpeaker,
 }) => {
-  useEffect(() => {
-    if (talkById.length < 1) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
-  }, [talkById]);
-
   const selectSpeaker = (speaker) => {
     fetchTalkBySpeaker(speaker.id);
     setSelectedSpeaker(speaker);
@@ -38,18 +30,18 @@ const TalkById = ({
           <h2>Talks at {selectedConf.name}</h2>
           <img src={unmutedIMG} alt="microphone" />
         </div>
-        <TalkByIdTable>
-          <thead>
-            <tr>
-              <th>Topic</th>
-              <th>Duration</th>
-              <th>Props list</th>
-              <th>Speaker(s)</th>
-            </tr>
-          </thead>
-          {loading ? (
-            <Spinner size={'150px'} />
-          ) : (
+        {loading ? (
+          <Spinner size="150px" />
+        ) : (
+          <TalkByIdTable>
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>Duration</th>
+                <th>Props list</th>
+                <th>Speaker(s)</th>
+              </tr>
+            </thead>
             <tbody>
               {talkById.map((talk) => (
                 <tr key={+talk.id}>
@@ -69,8 +61,8 @@ const TalkById = ({
                 </tr>
               ))}
             </tbody>
-          )}
-        </TalkByIdTable>
+          </TalkByIdTable>
+        )}
       </TalkByIdDiv>
     </>
   );

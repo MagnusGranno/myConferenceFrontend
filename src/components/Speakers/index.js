@@ -22,18 +22,18 @@ const Speakers = ({
         <div className="speakerHeadline">
           <h2>Speakers</h2> <img src={speakersIMG} alt="speakers" />
         </div>
-        <SpeakerTable>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Company</th>
-              <th>Profession</th>
-              <th>Gender</th>
-            </tr>
-          </thead>
-          {loading ? (
-            <Spinner size={'150px'} />
-          ) : (
+        {loading ? (
+          <Spinner size="150px" />
+        ) : (
+          <SpeakerTable>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Profession</th>
+                <th>Gender</th>
+              </tr>
+            </thead>
             <tbody>
               {speakers.map((speaker) => (
                 <tr key={+speaker.id} onClick={() => selectSpeaker(speaker)}>
@@ -46,8 +46,8 @@ const Speakers = ({
                 </tr>
               ))}
             </tbody>
-          )}
-        </SpeakerTable>
+          </SpeakerTable>
+        )}
       </SpeakerDiv>
     </>
   );

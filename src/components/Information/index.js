@@ -27,11 +27,14 @@ const Information = ({ loggedIn }) => {
   const [speakers, setSpeakers] = useState([]);
 
   // Fetch taking too long?
-  const [loading, setLoading] = useState(true);
+  const [confLoading, setConfLoading] = useState(true);
+  const [speakerloading, setSpeakerLoading] = useState(true);
+  const [singleSpeakerloading, setSingleSpeakerLoading] = useState(true);
+  const [talkLoading, setTalkLoading] = useState(true);
 
-  // Should i be shown?
-  const [showTalk, setShowTalk] = useState(false);
-  const [showTalkBySpeaker, setShowTalkBySpeaker] = useState(false);
+  // // Should i be shown?
+  // const [showTalk, setShowTalk] = useState(false);
+  // const [showTalkBySpeaker, setShowTalkBySpeaker] = useState(false);
 
   // Selected conference
   const [selectedConf, setSelectedConf] = useState({
@@ -50,11 +53,19 @@ const Information = ({ loggedIn }) => {
 
   useEffect(() => {
     if (conferences.length < 1) {
-      setLoading(true);
+      setConfLoading(true);
     } else {
-      setLoading(false);
+      setConfLoading(false);
     }
   }, [conferences]);
+
+  useEffect(() => {
+    if (talkById.length < 1) {
+      setTalkLoading(true);
+    } else {
+      setTalkLoading(false);
+    }
+  }, [talkById]);
 
   useEffect(() => {
     if (!loggedIn) {
@@ -63,30 +74,34 @@ const Information = ({ loggedIn }) => {
   }, [loggedIn]);
 
   const fetchTalkById = async (id) => {
+    setTalkLoading(true);
     const response = await facade.fetchTalkById(id);
     setTalkById(response);
-    setShowTalk(true);
+    setTalkLoading(false);
     return response;
   };
 
   const fetchConferences = async () => {
+    setConfLoading(true);
     const response = await facade.fetchConferences();
     setConferences(response);
-
+    setConfLoading(false);
     return response;
   };
 
   const fetchTalkBySpeaker = async (id) => {
-    setShowTalkBySpeaker(false);
+    setSingleSpeakerLoading(true);
     const response = await facade.fetchTalkBySpeaker(id);
     setTalksBySpeaker(response);
-    setShowTalkBySpeaker(true);
+    setSingleSpeakerLoading(false);
     return response;
   };
 
   const fetchAllSpeakers = async () => {
+    setSpeakerLoading(true);
     const response = await facade.fetchAllSpeakers();
     setSpeakers(response);
+    setSpeakerLoading(false);
     return response;
   };
 
@@ -94,43 +109,33 @@ const Information = ({ loggedIn }) => {
     <InfoBody>
       <Wrapper>
         <VerticalWrapper>
-          {conferences.length < 1 ? (
-            <Spinner size={'150px'} />
-          ) : (
-            <Conferences
-              conferences={conferences}
-              loading={loading}
-              setTalkById={setTalkById}
-              fetchTalkById={fetchTalkById}
-              setSelectedConf={setSelectedConf}
-            />
-          )}
-          {speakers.length < 1 ? (
-            <Spinner size={'150px'} />
-          ) : (
-            <Speakers
-              speakers={speakers}
-              setSelectedSpeaker={setSelectedSpeaker}
-              loading={loading}
-              setLoading={setLoading}
-              fetchTalkBySpeaker={fetchTalkBySpeaker}
-            />
-          )}
+          <Conferences
+            conferences={conferences}
+            Loading={confLoading}
+            setTalkById={setTalkById}
+            fetchTalkById={fetchTalkById}
+            setSelectedConf={setSelectedConf}
+          />
+          <Speakers
+            speakers={speakers}
+            setSelectedSpeaker={setSelectedSpeaker}
+            loading={speakerloading}
+            fetchTalkBySpeaker={fetchTalkBySpeaker}
+          />
         </VerticalWrapper>
         <VerticalWrapper>
-          {showTalk && (
+          {!talkLoading && (
             <TalkById
               talkById={talkById}
-              loading={loading}
-              setLoading={setLoading}
+              loading={talkLoading}
               selectedConf={selectedConf}
               fetchTalkBySpeaker={fetchTalkBySpeaker}
               setSelectedSpeaker={setSelectedSpeaker}
             />
           )}
-          {showTalkBySpeaker && (
+          {!singleSpeakerloading && (
             <TalkBySpeaker
-              loading={loading}
+              loading={singleSpeakerloading}
               talksBySpeaker={talksBySpeaker}
               selectedSpeaker={selectedSpeaker}
             />

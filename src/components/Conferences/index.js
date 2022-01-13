@@ -26,19 +26,19 @@ const Conferences = ({
         <div className="conferenceHeadline">
           <h2>Conferences</h2> <img src={conferencesIMG} alt="conferenceimg" />
         </div>
-        <ConferenceTable>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Location</th>
-              <th>Capacity</th>
-              <th>Date</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          {loading ? (
-            <Spinner size={'150px'} />
-          ) : (
+        {loading ? (
+          <Spinner size={'150px'} />
+        ) : (
+          <ConferenceTable>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+            </thead>
             <tbody>
               {conferences.map((conference) => (
                 <tr
@@ -56,8 +56,8 @@ const Conferences = ({
                 </tr>
               ))}
             </tbody>
-          )}
-        </ConferenceTable>
+          </ConferenceTable>
+        )}
       </ConferenceDiv>
     </>
   );

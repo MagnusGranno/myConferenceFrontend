@@ -17,10 +17,12 @@ export const Wrapper = styled.div`
 
 export const VerticalWrapper = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
+  margin: 0 1rem;
 `;
 
-export const CreateConferenceDiv = styled.div`
+export const CreateDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -30,11 +32,12 @@ export const CreateConferenceDiv = styled.div`
   border-radius: 10px 10px 10px 10px;
 
   h2 {
+    color: hsl(var(--primary-color));
     width: 100%;
   }
 `;
 
-export const CreateConferenceForm = styled.form`
+export const CreateForm = styled.form`
   width: 100%;
   height: 100%;
   max-width: 700px;
@@ -54,7 +57,7 @@ export const CreateConferenceForm = styled.form`
 
   button {
     display: block;
-    background-color: hsl(var(--minor-color));
+    background-color: hsl(var(--primary-color));
     color: #fff;
     font-size: 1.2rem;
     border: 0;
@@ -67,5 +70,11 @@ export const CreateConferenceForm = styled.form`
     :hover {
       background-color: hsl(var(--minor-color), 0.8);
     }
+  }
+  .red {
+    color: red;
+  }
+  .green {
+    color: green;
   }
 `;

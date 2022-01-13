@@ -97,6 +97,32 @@ function apiFacade() {
       console.error(e);
     }
   };
+
+  const createTalk = async (talk) => {
+    const options = makeOptions('POST', true, talk);
+    try {
+      const response = await fetch(
+        URL + '/api/conference/create/talk/',
+        options
+      );
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const createSpeaker = async (speaker) => {
+    const options = makeOptions('POST', true, speaker);
+    try {
+      const response = await fetch(
+        URL + '/api/conference/create/speaker/',
+        options
+      );
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const fetchData = () => {
     const options = makeOptions('GET', true);
     return fetch(URL + `/api/info/user`, options).then(handleHtttpErrors);
@@ -168,6 +194,8 @@ function apiFacade() {
     fetchAllSpeakers,
     isExpired,
     createConference,
+    createTalk,
+    createSpeaker,
   };
 }
 export const facade = apiFacade();

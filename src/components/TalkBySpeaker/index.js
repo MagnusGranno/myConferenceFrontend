@@ -9,13 +9,17 @@ import speakerIMG from '../../images/speaker_pink.png';
 // Components
 import Spinner from '../Spinner';
 import { calcTime } from '../../Helpers';
-const TalkBySpeaker = ({ loading, talksBySpeaker, selectedSpeaker, fetchTalkBySpeaker, setSelectedSpeaker }) => {
-
-
-    const selectSpeaker = (speaker) => {
-        fetchTalkBySpeaker(speaker.id);
-        setSelectedSpeaker(speaker);
-      };
+const TalkBySpeaker = ({
+  loading,
+  talksBySpeaker,
+  selectedSpeaker,
+  fetchTalkBySpeaker,
+  setSelectedSpeaker,
+}) => {
+  const selectSpeaker = (speaker) => {
+    fetchTalkBySpeaker(speaker.id);
+    setSelectedSpeaker(speaker);
+  };
   return (
     <>
       <TalkBySpeakerDiv>
@@ -23,18 +27,18 @@ const TalkBySpeaker = ({ loading, talksBySpeaker, selectedSpeaker, fetchTalkBySp
           <h2>Talks by {selectedSpeaker.name}</h2>
           <img src={speakerIMG} alt="conferenceimg" />
         </div>
-        <TalkBySpeakerTable>
-          <thead>
-            <tr>
-              <th>Topic</th>
-              <th>Duration</th>
-              <th>Props list</th>
-              <th>Speaker(s)</th>
-            </tr>
-          </thead>
-          {loading ? (
-            <Spinner size={'150px'} />
-          ) : (
+        {loading ? (
+          <Spinner size="150px" />
+        ) : (
+          <TalkBySpeakerTable>
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>Duration</th>
+                <th>Props list</th>
+                <th>Speaker(s)</th>
+              </tr>
+            </thead>
             <tbody>
               {talksBySpeaker.map((talk) => (
                 <tr key={+talk.id}>
@@ -54,8 +58,8 @@ const TalkBySpeaker = ({ loading, talksBySpeaker, selectedSpeaker, fetchTalkBySp
                 </tr>
               ))}
             </tbody>
-          )}
-        </TalkBySpeakerTable>
+          </TalkBySpeakerTable>
+        )}
       </TalkBySpeakerDiv>
     </>
   );
