@@ -21,6 +21,9 @@ export const GlobalStyle = createGlobalStyle`
 
   //Hex #DCDCDD
   --secondary-color: 0, 0%, 91%;
+
+  //Hex #1C2541
+  --minor-color: 335, 87%, 66%;
 }
 
 
@@ -57,10 +60,10 @@ body {
     margin: 0;
   }
   .active {
-   color: #000;
+   color: hsl(var(--minor-color));
 
    h5 {
-   border-bottom: 1px solid black;
+   border-bottom: 1px solid hsl(var(--minor-color));
    }
   }
 

@@ -101,7 +101,7 @@ export const LinkButton = styled.button`
   padding: 0.5rem;
   cursor: pointer;
   box-sizing: border-box;
-  color: hsl(var(--primary-color));
+  color: hsl(var(--minor-color));
   font-size: var(--fs-200);
   font-weight: 800;
   background-color: hsl(var(--secondary-color));
@@ -115,7 +115,8 @@ export const ShowPW = styled.button`
   display: block;
   border: 0;
   border-radius: 5px;
-  color: hsl(var(--primary-color));
+  color: hsl(var(--minor-color));
+  font-weight: 800;
   cursor: pointer;
   box-sizing: border-box;
   background-color: hsl(var(--secondary-color));

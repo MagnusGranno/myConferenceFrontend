@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // styles
-import { Wrapper, OwnerDiv, InfoBody, OwnersTable } from './Information.styles';
+import { Wrapper, InfoBody, VerticalWrapper } from './Information.styles';
 
 // Router
 import { useNavigate } from 'react-router-dom';
@@ -11,14 +11,22 @@ import Spinner from '../Spinner';
 
 // facade
 import { facade } from '../../apiFacade';
-
-// image
-import ownersIMG from '../../images/owners.png';
+import Conferences from '../Conferences';
+import TalkById from '../TalkById';
 
 const Information = ({ loggedIn }) => {
   const navigate = useNavigate();
   const [conferences, setConferences] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [talkById, setTalkById] = useState([]);
+  const [showTalk, setShowTalk] = useState(false);
+  const [selectedConf, setSelectedConf] = useState({
+    name: '',
+    location: '',
+    capacity: 0,
+    date: '',
+    time: 0,
+  });
 
   useEffect(() => {
     fetchConferences();
@@ -38,52 +46,46 @@ const Information = ({ loggedIn }) => {
     }
   }, [loggedIn]);
 
+  const fetchTalkById = async (id) => {
+    const response = await facade.fetchTalkById(id);
+    setTalkById(response);
+    setShowTalk(true);
+    return response;
+  };
+
   const fetchConferences = async () => {
     const response = await facade.fetchConferences();
     setConferences(response);
+
     return response;
   };
 
   return (
     <InfoBody>
       <Wrapper>
-        <OwnerDiv>
-          <div className="ownerHeadline">
-            <h2>Conferences</h2> <img src={ownersIMG} alt="ownerimg" />
-          </div>
-          <OwnersTable>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Capacity</th>
-                <th>Date</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            {loading ? (
-              <Spinner size={'150px'} />
-            ) : (
-              <tbody>
-                {conferences.map((conference) => (
-                  <tr key={+conference.id}>
-                    <td>{conference.name}</td>
-                    <td>{conference.location}</td>
-                    <td>{conference.capacity}</td>
-                    <td>{conference.date}</td>
-                    <td>{conference.time}</td>
-                  </tr>
-                ))}
-              </tbody>
-            )}
-          </OwnersTable>
-        </OwnerDiv>
-        <OwnerDiv>
-          {loading ? <Spinner size={'150px'} /> : <p>TESTING TESTING</p>}
-        </OwnerDiv>
-        <OwnerDiv>
-          {loading ? <Spinner size={'150px'} /> : <p>TESTING TESTING</p>}
-        </OwnerDiv>
+        <VerticalWrapper>
+          {conferences.length < 1 ? (
+            <Spinner size={'150px'} />
+          ) : (
+            <Conferences
+              conferences={conferences}
+              loading={loading}
+              setTalkById={setTalkById}
+              fetchTalkById={fetchTalkById}
+              setSelectedConf={setSelectedConf}
+            />
+          )}
+        </VerticalWrapper>
+        <VerticalWrapper>
+          {showTalk && (
+            <TalkById
+              talkById={talkById}
+              loading={loading}
+              setLoading={setLoading}
+              selectedConf={selectedConf}
+            />
+          )}
+        </VerticalWrapper>
       </Wrapper>
     </InfoBody>
   );

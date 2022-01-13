@@ -42,6 +42,12 @@ function apiFacade() {
     return response.json();
   };
 
+  const fetchTalkById = async (id) => {
+    const options = makeOptions('GET', true);
+    const response = await fetch(URL + '/api/conference/talk/' + id, options);
+    return response.json();
+  };
+
   const fetchData = () => {
     const options = makeOptions('GET', true);
     return fetch(URL + `/api/info/user`, options).then(handleHtttpErrors);
@@ -101,6 +107,7 @@ function apiFacade() {
     handleHtttpErrors,
     fetchAny,
     fetchConferences,
+    fetchTalkById,
   };
 }
 export const facade = apiFacade();
