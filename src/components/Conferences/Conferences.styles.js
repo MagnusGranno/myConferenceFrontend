@@ -19,7 +19,8 @@ export const ConferenceDiv = styled.div`
     padding: 0 1rem;
     h2 {
       font-size: var(--fs-600);
-      color: hsl(var(--primary-color));
+      color: hsl(var(--minor-color));
+      letter-spacing: 2px;
     }
   }
 `;

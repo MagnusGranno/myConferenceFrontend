@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ConferenceDiv, ConferenceTable } from './Conferences.styles';
 
 // Image
-import conferencesIMG from '../../images/conferences.png';
+import conferencesIMG from '../../images/conferences_pink.png';
 import capacityIMG from '../../images/capacitySmall.png';
 // Helpers
 import { calcTime, formatDate } from '../../Helpers';

@@ -8,18 +8,30 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import Spinner from '../Spinner';
+import TalkById from '../TalkById';
+import TalkBySpeaker from '../TalkBySpeaker';
+import Conferences from '../Conferences';
 
 // facade
 import { facade } from '../../apiFacade';
-import Conferences from '../Conferences';
-import TalkById from '../TalkById';
 
 const Information = ({ loggedIn }) => {
+  // Used if we are logged out or token expires
   const navigate = useNavigate();
+
+  // Api data
   const [conferences, setConferences] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [talkById, setTalkById] = useState([]);
+  const [talksBySpeaker, setTalksBySpeaker] = useState([]);
+
+  // Fetch taking too long?
+  const [loading, setLoading] = useState(true);
+
+  // Should i be shown?
   const [showTalk, setShowTalk] = useState(false);
+  const [showTalkBySpeaker, setShowTalkBySpeaker] = useState(false);
+
+  // Selected conference
   const [selectedConf, setSelectedConf] = useState({
     name: '',
     location: '',
@@ -27,6 +39,7 @@ const Information = ({ loggedIn }) => {
     date: '',
     time: 0,
   });
+  const [selectedSpeaker, setSelectedSpeaker] = useState({});
 
   useEffect(() => {
     fetchConferences();
@@ -60,6 +73,13 @@ const Information = ({ loggedIn }) => {
     return response;
   };
 
+  const fetchTalkBySpeaker = async (id) => {
+    const response = await facade.fetchTalkBySpeaker(id);
+    setTalksBySpeaker(response);
+    setShowTalkBySpeaker(true);
+    return response;
+  };
+
   return (
     <InfoBody>
       <Wrapper>
@@ -83,6 +103,15 @@ const Information = ({ loggedIn }) => {
               loading={loading}
               setLoading={setLoading}
               selectedConf={selectedConf}
+              fetchTalkBySpeaker={fetchTalkBySpeaker}
+              setSelectedSpeaker={setSelectedSpeaker}
+            />
+          )}
+          {showTalkBySpeaker && (
+            <TalkBySpeaker
+              loading={loading}
+              talksBySpeaker={talksBySpeaker}
+              selectedSpeaker={selectedSpeaker}
             />
           )}
         </VerticalWrapper>

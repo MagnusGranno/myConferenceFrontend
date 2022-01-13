@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 
 // Routing
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
 
 // Components
 import Header from './components/Header';
@@ -21,12 +26,17 @@ function App() {
     username: '',
     password: '',
   };
+
   const [loggedIn, setLoggedIn] = useState(facade.loggedIn);
   const [loginCredentials, setLoginCredentials] = useState(initialState);
   const [signupCredentials, setSignupCredentials] = useState(initialState);
   useEffect(() => {
     if (sessionStorage.getItem('username') && facade.loggedIn) {
       setLoggedIn(true);
+    }
+    if (facade.isExpired) {
+      facade.logout();
+      setLoggedIn(false);
     }
   }, []);
   return (

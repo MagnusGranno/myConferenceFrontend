@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
   //Hex #DCDCDD
   --secondary-color: 0, 0%, 91%;
 
-  //Hex #1C2541
+  //Hex #f45d9c
   --minor-color: 335, 87%, 66%;
 }
 

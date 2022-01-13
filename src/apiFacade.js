@@ -1,3 +1,4 @@
+import { decodeToken } from './Helpers';
 import { myUrl } from './settings';
 
 const URL = myUrl;
@@ -38,16 +39,39 @@ function apiFacade() {
 
   const fetchConferences = async () => {
     const options = makeOptions('GET', true);
-    const response = await fetch(URL + '/api/conference/conferences', options);
-    return response.json();
+    try {
+      const response = await fetch(
+        URL + '/api/conference/conferences',
+        options
+      );
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const fetchTalkById = async (id) => {
     const options = makeOptions('GET', true);
-    const response = await fetch(URL + '/api/conference/talk/' + id, options);
-    return response.json();
+    try {
+      const response = await fetch(URL + '/api/conference/talk/' + id, options);
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
+  const fetchTalkBySpeaker = async (id) => {
+    const options = makeOptions('GET', true);
+    try {
+      const response = await fetch(
+        URL + '/api/conference/talk/speaker/' + id,
+        options
+      );
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const fetchData = () => {
     const options = makeOptions('GET', true);
     return fetch(URL + `/api/info/user`, options).then(handleHtttpErrors);
@@ -58,13 +82,20 @@ function apiFacade() {
   };
   const setToken = (token) => {
     sessionStorage.setItem('jwtToken', token);
-
-    const jwtData = token.split('.')[1];
-    const decodedJwtJsonData = window.atob(jwtData);
-    const decodedJwtData = JSON.parse(decodedJwtJsonData);
-
-    const roles = decodedJwtData.roles;
+    const roles = decodeToken(token).roles;
     sessionStorage.setItem('roles', JSON.stringify(roles));
+  };
+
+  const isExpired = () => {
+    if (sessionStorage.getItem('jwtToken')) {
+      const expireTime = decodeToken(sessionStorage.getItem('jwtToken'));
+
+      if (expireTime * 1000 < Date.now) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   };
   const getToken = () => {
     return sessionStorage.getItem('jwtToken');
@@ -108,6 +139,8 @@ function apiFacade() {
     fetchAny,
     fetchConferences,
     fetchTalkById,
+    fetchTalkBySpeaker,
+    isExpired,
   };
 }
 export const facade = apiFacade();

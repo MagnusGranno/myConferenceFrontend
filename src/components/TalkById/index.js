@@ -6,10 +6,19 @@ import { TalkByIdDiv, TalkByIdTable } from './TalkById.styles';
 // Helpers
 import { calcTime, formatDate } from '../../Helpers';
 
+// images
+import unmutedIMG from '../../images/unmuted_pink.png';
 // Components
 import Spinner from '../Spinner';
 
-const TalkById = ({ loading, talkById, setLoading, selectedConf }) => {
+const TalkById = ({
+  loading,
+  talkById,
+  setLoading,
+  selectedConf,
+  fetchTalkBySpeaker,
+  setSelectedSpeaker,
+}) => {
   useEffect(() => {
     if (talkById.length < 1) {
       setLoading(true);
@@ -17,43 +26,25 @@ const TalkById = ({ loading, talkById, setLoading, selectedConf }) => {
       setLoading(false);
     }
   }, [talkById]);
+
+  const selectSpeaker = (speaker) => {
+    fetchTalkBySpeaker(speaker.id);
+    setSelectedSpeaker(speaker);
+  };
   return (
     <>
       <TalkByIdDiv>
+        <div className="talkHeadline">
+          <h2>Talks at {selectedConf.name}</h2>
+          <img src={unmutedIMG} alt="conferenceimg" />
+        </div>
         <TalkByIdTable>
           <thead>
-            <tr>
-              <th className="centerMe" colSpan="4">
-                {selectedConf.name}
-              </th>
-            </tr>
-            <tr>
-              <th>Location</th>
-              <th>Capacity</th>
-              <th>Date</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{selectedConf.location}</td>
-              <td>{selectedConf.capacity}</td>
-              <td>{formatDate(selectedConf.date)}</td>
-              <td>{selectedConf.time}</td>
-            </tr>
-          </tbody>
-        </TalkByIdTable>
-        <TalkByIdTable>
-          <thead>
-            <tr>
-              <th className="centerMe" colSpan="4">
-                Talks
-              </th>
-            </tr>
             <tr>
               <th>Topic</th>
               <th>Duration</th>
               <th>Props list</th>
+              <th>Speaker(s)</th>
             </tr>
           </thead>
           {loading ? (
@@ -65,6 +56,16 @@ const TalkById = ({ loading, talkById, setLoading, selectedConf }) => {
                   <td>{talk.topic}</td>
                   <td>{calcTime(talk.duration)}</td>
                   <td>{talk.props_list}</td>
+                  <td>
+                    {talk.speaker_list.map((speaker) => (
+                      <p
+                        key={speaker.id}
+                        onClick={() => selectSpeaker(speaker)}
+                      >
+                        {speaker.name}
+                      </p>
+                    ))}
+                  </td>
                 </tr>
               ))}
             </tbody>

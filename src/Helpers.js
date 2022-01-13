@@ -33,3 +33,11 @@ export const calcTime = (time) => {
   }
   return `${Math.floor(time / 60)} h, ${time % 60} m`;
 };
+
+export const decodeToken = (token) => {
+  const jwtData = token.split('.')[1];
+  const decodedJwtJsonData = window.atob(jwtData);
+  const decodedJwtData = JSON.parse(decodedJwtJsonData);
+
+  return decodedJwtData;
+};

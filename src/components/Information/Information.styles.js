@@ -16,4 +16,5 @@ export const Wrapper = styled.div`
 export const VerticalWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 5rem;
 `;
