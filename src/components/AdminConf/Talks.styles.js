@@ -60,4 +60,7 @@ export const AdminConfTable = styled.table`
   tbody tr:last-of-type {
     border: none;
   }
+  p {
+    font-size: 14px;
+  }
 `;

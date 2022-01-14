@@ -1,7 +1,7 @@
 //Base URL
 
-const localUrl = 'http://localhost:8080/myConference';
+const localUrl = 'http://localhost:8080/myConference/';
 
-const dropletUrl = 'https://mgranno.com/tomcat/myconference';
+const dropletUrl = 'https://mgranno.com/tomcat/myConference/';
 
-export const myUrl = localUrl;
+export const myUrl = dropletUrl;

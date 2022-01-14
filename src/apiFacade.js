@@ -16,7 +16,7 @@ function apiFacade() {
       password: password,
     });
 
-    return fetch(URL + '/api/login', options)
+    return fetch(URL + 'api/login', options)
       .then(handleHtttpErrors)
       .then((res) => {
         setToken(res.token);
@@ -33,8 +33,8 @@ function apiFacade() {
       password: password,
     });
     try {
-      const response = await fetch(URL + '/api/login/signup', options);
-      return await response.json();
+      const response = await fetch(URL + 'api/login/signup/', options);
+      return response.json();
     } catch (e) {
       console.log(e);
     }
@@ -44,7 +44,7 @@ function apiFacade() {
     const options = makeOptions('GET', true);
     try {
       const response = await fetch(
-        URL + '/api/conference/conferences',
+        URL + 'api/conference/conferences/',
         options
       );
       return response.json();
@@ -56,7 +56,7 @@ function apiFacade() {
   const fetchTalkById = async (id) => {
     const options = makeOptions('GET', true);
     try {
-      const response = await fetch(URL + '/api/conference/talk/' + id, options);
+      const response = await fetch(URL + 'api/conference/talk/' + id, options);
       return response.json();
     } catch (e) {
       console.error(e);
@@ -67,7 +67,7 @@ function apiFacade() {
     const options = makeOptions('GET', true);
     try {
       const response = await fetch(
-        URL + '/api/conference/talk/speaker/' + id,
+        URL + 'api/conference/talk/speaker/' + id,
         options
       );
       return response.json();
@@ -78,7 +78,7 @@ function apiFacade() {
   const fetchAllSpeakers = async () => {
     const options = makeOptions('GET', true);
     try {
-      const response = await fetch(URL + '/api/conference/speakers/', options);
+      const response = await fetch(URL + 'api/conference/speakers/', options);
       return response.json();
     } catch (e) {
       console.error(e);
@@ -88,7 +88,7 @@ function apiFacade() {
   const fetchAllTalks = async () => {
     const options = makeOptions('GET', true);
     try {
-      const response = await fetch(URL + '/api/conference/talks/', options);
+      const response = await fetch(URL + 'api/conference/talks/', options);
       return response.json();
     } catch (e) {
       console.error(e);
@@ -99,7 +99,7 @@ function apiFacade() {
     const options = makeOptions('POST', true, conf);
     try {
       const response = await fetch(
-        URL + '/api/conference/create/conference/',
+        URL + 'api/conference/create/conference/',
         options
       );
       return response.json();
@@ -112,7 +112,7 @@ function apiFacade() {
     const options = makeOptions('POST', true, talk);
     try {
       const response = await fetch(
-        URL + '/api/conference/create/talk/',
+        URL + 'api/conference/create/talk/',
         options
       );
       return response.json();
@@ -125,7 +125,7 @@ function apiFacade() {
     const options = makeOptions('POST', true, speaker);
     try {
       const response = await fetch(
-        URL + '/api/conference/create/speaker/',
+        URL + 'api/conference/create/speaker/',
         options
       );
       return response.json();
@@ -135,7 +135,7 @@ function apiFacade() {
   };
   const fetchData = () => {
     const options = makeOptions('GET', true);
-    return fetch(URL + `/api/info/user`, options).then(handleHtttpErrors);
+    return fetch(URL + `api/info/user/`, options).then(handleHtttpErrors);
   };
   const fetchAny = (someUrl) => {
     const options = makeOptions('GET', true);

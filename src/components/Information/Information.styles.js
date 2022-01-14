@@ -11,6 +11,11 @@ export const Wrapper = styled.div`
   max-width: 1440px;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 1300px) {
+    flex-direction: column;
+    max-width: 720px;
+  }
 `;
 
 export const VerticalWrapper = styled.div`

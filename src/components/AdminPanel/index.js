@@ -134,6 +134,9 @@ const AdminPanel = ({
       setSSuccess(response.message);
     }
     setCS(csState);
+    fetchConferences();
+    fetchTalks();
+    fetchSpeakers();
   };
   // Create Talk
   const perfomCT = (e) => {
@@ -167,7 +170,10 @@ const AdminPanel = ({
       setTError('');
       setTSuccess(response.message);
     }
-    setCC(ccState);
+    setCT(ctState);
+    fetchConferences();
+    fetchTalks();
+    fetchSpeakers();
   };
 
   // Create conference
@@ -203,6 +209,9 @@ const AdminPanel = ({
       setCSuccess(response.message);
     }
     setCC(ccState);
+    fetchConferences();
+    fetchTalks();
+    fetchSpeakers();
   };
   return (
     <AdminBody>

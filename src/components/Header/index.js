@@ -36,11 +36,11 @@ function Header({ loggedIn, setLoggedIn, setLoginCredentials }) {
               <h5>Information</h5>
             </NavLink>
           )}
-
-          <NavLink to="/adminpanel">
-            <h5>Admin panel</h5>
-          </NavLink>
-
+          {sessionStorage.getItem('roles') === '"admin"' && (
+            <NavLink to="/adminpanel">
+              <h5>Admin panel</h5>
+            </NavLink>
+          )}
           {!loggedIn ? (
             <NavLink to="/login">
               <h5>Login</h5>
