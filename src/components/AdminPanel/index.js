@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Facade
 import { facade } from '../../apiFacade';
 
+// Router
+import { useNavigate } from 'react-router-dom';
+// Components
+import Talks from '../Talks';
+import AdminConf from '../AdminConf';
 // Styles
 import {
   AdminBody,
@@ -11,8 +16,34 @@ import {
   CreateDiv,
   CreateForm,
 } from './AdminPanel.styles';
+import AdminSpeakers from '../AdminSpeakers';
 
-const AdminPanel = () => {
+const AdminPanel = ({
+  conferences,
+  setConferences,
+  talks,
+  setTalks,
+  speakers,
+  setSpeakers,
+  speakerloading,
+  setSpeakerLoading,
+  confLoading,
+  setConfLoading,
+  allTalksLoading,
+  setAllTalksLoading,
+  loggedIn,
+}) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetchConferences();
+    fetchTalks();
+    fetchSpeakers();
+  }, []);
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate('/');
+    }
+  }, [loggedIn]);
   const ccState = {
     name: '',
     capacity: 1000,
@@ -26,12 +57,16 @@ const AdminPanel = () => {
     topic: '',
     duration: 0,
     props_list: '',
+    conf_id: 0,
+    speaker_id: 0,
   };
   const csState = {
     name: '',
     company: '',
     profession: '',
     gender: '',
+    talk_id: 0,
+    conf_id: 0,
   };
   const [cError, setCError] = useState('');
   const [cSuccess, setCSuccess] = useState('');
@@ -44,6 +79,28 @@ const AdminPanel = () => {
   const [ct, setCT] = useState(ctState);
   const [cs, setCS] = useState(csState);
 
+  const fetchConferences = async () => {
+    setConfLoading(true);
+    const response = await facade.fetchConferences();
+    setConferences(response);
+    setConfLoading(false);
+    return response;
+  };
+
+  const fetchTalks = async () => {
+    setAllTalksLoading(true);
+    const response = await facade.fetchAllTalks();
+    setTalks(response);
+    setAllTalksLoading(false);
+    return response;
+  };
+  const fetchSpeakers = async () => {
+    setSpeakerLoading(true);
+    const response = await facade.fetchAllSpeakers();
+    setSpeakers(response);
+    setSpeakerLoading(false);
+    return response;
+  };
   // Create Speaker
   const perfomCS = (e) => {
     e.preventDefault();
@@ -217,12 +274,16 @@ const AdminPanel = () => {
                 value={cc.time}
                 onChange={onCCChange}
               />
+
               {cError && <p className="red">{cError}</p>}
               {cSuccess && <p className="green">{cSuccess}</p>}
 
               <button onClick={perfomCC}>Create Conference</button>
             </CreateForm>
           </CreateDiv>
+          {!confLoading && (
+            <AdminConf conferences={conferences} loading={confLoading} />
+          )}
         </VerticalWrapper>
         <VerticalWrapper>
           {/* CREATE TALK */}
@@ -255,11 +316,28 @@ const AdminPanel = () => {
                 value={ct.props_list}
                 onChange={onCTChange}
               />
+              <label htmlFor="conf_id">Conference ID</label>
+              <input
+                type="number"
+                name="conf_id"
+                id="conf_id"
+                value={ct.conf_id}
+                onChange={onCTChange}
+              />
+              <label htmlFor="speaker_id">Speaker ID</label>
+              <input
+                type="number"
+                name="speaker_id"
+                id="speaker_id"
+                value={ct.speaker_id}
+                onChange={onCTChange}
+              />
               {tError && <p className="red">{tError}</p>}
               {tSuccess && <p className="green">{tSuccess}</p>}
               <button onClick={perfomCT}>Create Talk</button>
             </CreateForm>
           </CreateDiv>
+          <Talks talks={talks} loading={allTalksLoading} />
         </VerticalWrapper>
         <VerticalWrapper>
           {/* CREATE SPEAKER */}
@@ -303,11 +381,30 @@ const AdminPanel = () => {
                 value={cs.gender}
                 onChange={onCsChange}
               />
+              <label htmlFor="talk_id">Talk ID</label>
+              <input
+                type="number"
+                name="talk_id"
+                id="talk_id"
+                value={cs.talk_id}
+                onChange={onCsChange}
+              />
+              <label htmlFor="conf_id">Conference ID</label>
+              <input
+                type="number"
+                name="conf_id"
+                id="conf_id"
+                value={cs.conf_id}
+                onChange={onCsChange}
+              />
               {sError && <p className="red">{sError}</p>}
               {sSuccess && <p className="green">{sSuccess}</p>}
               <button onClick={perfomCS}>Create Speaker</button>
             </CreateForm>
           </CreateDiv>
+          {!speakerloading && (
+            <AdminSpeakers loading={speakerloading} speakers={speakers} />
+          )}
         </VerticalWrapper>
       </Wrapper>
     </AdminBody>

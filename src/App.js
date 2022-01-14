@@ -26,6 +26,17 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(facade.loggedIn);
   const [loginCredentials, setLoginCredentials] = useState(initialState);
   const [signupCredentials, setSignupCredentials] = useState(initialState);
+  const [conferences, setConferences] = useState([]);
+  const [talks, setTalks] = useState([]);
+  const [speakers, setSpeakers] = useState([]);
+
+  // LOADING IF FETCH TAKES TOO LONG
+  // Fetch taking too long?
+  const [confLoading, setConfLoading] = useState(true);
+  const [speakerloading, setSpeakerLoading] = useState(true);
+  const [singleSpeakerloading, setSingleSpeakerLoading] = useState(true);
+  const [talkLoading, setTalkLoading] = useState(true);
+  const [allTalksLoading, setAllTalksLoading] = useState(true);
   useEffect(() => {
     if (sessionStorage.getItem('username') && facade.loggedIn) {
       setLoggedIn(true);
@@ -60,9 +71,48 @@ function App() {
         />
         <Route
           path="/information"
-          element={<Information loggedIn={loggedIn} />}
+          element={
+            <Information
+              loggedIn={loggedIn}
+              conferences={conferences}
+              setConferences={setConferences}
+              confLoading={confLoading}
+              setConfLoading={setConfLoading}
+              speakerloading={speakerloading}
+              setSpeakerLoading={setSpeakerLoading}
+              singleSpeakerloading={singleSpeakerloading}
+              setSingleSpeakerLoading={setSingleSpeakerLoading}
+              talkLoading={talkLoading}
+              setTalkLoading={setTalkLoading}
+              speakers={speakers}
+              setSpeakers={setSpeakers}
+            />
+          }
         />
-        <Route path="/adminpanel" element={<AdminPanel />} />
+        <Route
+          path="/adminpanel"
+          element={
+            <AdminPanel
+              conferences={conferences}
+              setConferences={setConferences}
+              talks={talks}
+              setTalks={setTalks}
+              speakers={speakers}
+              setSpeakers={setSpeakers}
+              confLoading={confLoading}
+              setConfLoading={setConfLoading}
+              speakerloading={speakerloading}
+              setSpeakerLoading={setSpeakerLoading}
+              singleSpeakerloading={singleSpeakerloading}
+              setSingleSpeakerLoading={setSingleSpeakerLoading}
+              talkLoading={talkLoading}
+              setTalkLoading={setTalkLoading}
+              allTalksLoading={allTalksLoading}
+              setAllTalksLoading={setAllTalksLoading}
+              loggedIn={loggedIn}
+            />
+          }
+        />
       </Routes>
 
       <GlobalStyle />

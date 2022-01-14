@@ -85,6 +85,16 @@ function apiFacade() {
     }
   };
 
+  const fetchAllTalks = async () => {
+    const options = makeOptions('GET', true);
+    try {
+      const response = await fetch(URL + '/api/conference/talks/', options);
+      return response.json();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const createConference = async (conf) => {
     const options = makeOptions('POST', true, conf);
     try {
@@ -196,6 +206,7 @@ function apiFacade() {
     createConference,
     createTalk,
     createSpeaker,
+    fetchAllTalks,
   };
 }
 export const facade = apiFacade();

@@ -30,6 +30,7 @@ export const CreateDiv = styled.div`
   padding: 20px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px 10px 10px 10px;
+  margin-bottom: 1rem;
 
   h2 {
     color: hsl(var(--primary-color));
@@ -76,5 +77,23 @@ export const CreateForm = styled.form`
   }
   .green {
     color: green;
+  }
+  p {
+    padding: 0;
+    text-align: left;
+  }
+  .radioDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
+    margin: 0;
+    .radioAnswers {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `;

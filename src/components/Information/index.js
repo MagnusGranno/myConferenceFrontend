@@ -7,7 +7,6 @@ import { Wrapper, InfoBody, VerticalWrapper } from './Information.styles';
 import { useNavigate } from 'react-router-dom';
 
 // components
-import Spinner from '../Spinner';
 import TalkById from '../TalkById';
 import TalkBySpeaker from '../TalkBySpeaker';
 import Conferences from '../Conferences';
@@ -16,21 +15,27 @@ import Speakers from '../Speakers';
 // facade
 import { facade } from '../../apiFacade';
 
-const Information = ({ loggedIn }) => {
+const Information = ({
+  loggedIn,
+  conferences,
+  setConferences,
+  confLoading,
+  setConfLoading,
+  speakerloading,
+  setSpeakerLoading,
+  singleSpeakerloading,
+  setSingleSpeakerLoading,
+  talkLoading,
+  setTalkLoading,
+  speakers,
+  setSpeakers,
+}) => {
   // Used if we are logged out or token expires
   const navigate = useNavigate();
 
   // Api data
-  const [conferences, setConferences] = useState([]);
   const [talkById, setTalkById] = useState([]);
   const [talksBySpeaker, setTalksBySpeaker] = useState([]);
-  const [speakers, setSpeakers] = useState([]);
-
-  // Fetch taking too long?
-  const [confLoading, setConfLoading] = useState(true);
-  const [speakerloading, setSpeakerLoading] = useState(true);
-  const [singleSpeakerloading, setSingleSpeakerLoading] = useState(true);
-  const [talkLoading, setTalkLoading] = useState(true);
 
   // // Should i be shown?
   // const [showTalk, setShowTalk] = useState(false);
